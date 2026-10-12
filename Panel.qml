@@ -223,7 +223,7 @@ Panel {
           Text {
             id: statusLabel
             anchors.centerIn: parent
-            text: root.isFetching ? "syncing" : (root.lastUpdated ? root.lastUpdated : "idle")
+            text: root.isFetching ? "syncing" : (root.fetchError.length > 0 && root.marketItems.length > 0 ? "stale " + root.lastUpdated : (root.lastUpdated ? root.lastUpdated : "idle"))
             color: root.isFetching ? Color.background : root.fg
             font.family: root.fontFamily
             font.pixelSize: Style.font.bodySmall
@@ -279,9 +279,9 @@ Panel {
             height: Style.space(28)
             radius: Style.space(4)
             color: index === root.selectedIndex ? Style.selectedFillFor(root.fg, Color.accent) : "transparent"
-            border.color: root.fg
+            // Keyline stays quiet; only the selected row takes the accent edge.
+            border.color: index === root.selectedIndex ? root.accent : Qt.rgba(root.fg.r, root.fg.g, root.fg.b, 0.2)
             border.width: 1
-            opacity: 0.9
             RowLayout {
               anchors.fill: parent
               anchors.leftMargin: Style.space(6)
@@ -337,7 +337,7 @@ Panel {
 
       Text {
         anchors.horizontalCenter: parent.horizontalCenter
-        text: "Enter or click opens TradingView"
+        text: "j/k move  \u00b7  Enter opens TradingView  \u00b7  Esc closes"
         color: root.muted
         font.family: root.fontFamily
         font.pixelSize: Style.font.bodySmall
