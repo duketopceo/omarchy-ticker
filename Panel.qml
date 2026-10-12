@@ -25,6 +25,7 @@ Panel {
   readonly property color urgent: Color.urgent
   readonly property color accent: Color.accent
   readonly property color muted: Color.muted
+  readonly property string fontFamily: root.bar ? root.bar.fontFamily : Style.font.family
   readonly property string pluginRoot: {
     var p = Qt.resolvedUrl(".").toString()
     if (p.indexOf("file://") === 0)
@@ -205,7 +206,7 @@ Panel {
         Text {
           text: "Market watchlist"
           color: root.fg
-          font.family: root.bar ? root.bar.fontFamily : Style.font.family
+          font.family: root.fontFamily
           font.pixelSize: Style.font.bodySmall
           font.bold: true
         }
@@ -224,6 +225,7 @@ Panel {
             anchors.centerIn: parent
             text: root.isFetching ? "syncing" : (root.lastUpdated ? root.lastUpdated : "idle")
             color: root.isFetching ? Color.background : root.fg
+            font.family: root.fontFamily
             font.pixelSize: Style.font.bodySmall
             font.bold: true
             textFormat: Text.PlainText
@@ -241,6 +243,7 @@ Panel {
         width: parent.width
         text: root.fetchError
         color: root.urgent
+        font.family: root.fontFamily
         font.pixelSize: Style.font.bodySmall
         wrapMode: Text.WordWrap
         textFormat: Text.PlainText
@@ -250,6 +253,7 @@ Panel {
         visible: root.marketItems.length === 0 && !root.isFetching
         text: "No quotes yet"
         color: root.muted
+        font.family: root.fontFamily
         font.pixelSize: Style.font.bodySmall
       }
 
@@ -287,6 +291,7 @@ Panel {
                 text: modelData.symbol
                 color: root.fg
                 font.bold: true
+                font.family: root.fontFamily
                 font.pixelSize: Style.font.bodySmall
                 Layout.preferredWidth: Style.space(55)
                 textFormat: Text.PlainText
@@ -295,6 +300,7 @@ Panel {
                 text: modelData.price
                 color: root.fg
                 font.bold: true
+                font.family: root.fontFamily
                 font.pixelSize: Style.font.bodySmall
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignRight
@@ -312,6 +318,7 @@ Panel {
                   text: modelData.change
                   color: modelData.ok === false ? root.muted : root.chipText(modelData.positive)
                   font.bold: true
+                  font.family: root.fontFamily
                   font.pixelSize: Style.font.bodySmall
                   textFormat: Text.PlainText
                 }
@@ -332,6 +339,7 @@ Panel {
         anchors.horizontalCenter: parent.horizontalCenter
         text: "Enter or click opens TradingView"
         color: root.muted
+        font.family: root.fontFamily
         font.pixelSize: Style.font.bodySmall
       }
     }
